@@ -77,6 +77,14 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+1. In the Observer pattern diagram explained by the Head First Design Pattern book, Subscriber is defined as an interface. Explain based on your understanding of Observer design patterns, do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough ? <br>
+Jawab : Dalam Observer pattern, antarmuka Subscriber mendefinisikan kontrak bagi subscriber untuk menerima pembaruan dari subjek. Menggunakan antarmuka memungkinkan fleksibilitas, enkapsulasi, dan kemudahan pengujian. Namun, jika hanya satu jenis subscriber yang diperlukan, Model tunggal tanpa antarmuka cukup. Keputusan untuk menggunakannya tergantung pada kompleksitas dan kebutuhan aplikasi.
+
+2. id in Program and url in Subscriber is intended to be unique. Explain based on your understanding, is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently use is necessary for this case ? <br>
+Jawab : Penggunaan Vec sederhana dan mudah diimplementasikan, tetapi pencarian keunikan dalam Vec memerlukan iterasi melalui seluruh daftar, yang dapat menjadi tidak efisien saat ukuran daftar bertambah. DashMap, di sisi lain, memberikan akses yang cepat dan konstan untuk operasi pencarian, membuatnya efisien untuk memeriksa keunikan. Namun, DashMap mungkin memperkenalkan overhead tambahan dan tidak secara pasti mempertahankan urutan penyisipan. Jadi menggunakan DashMap menurut saya diperlukan karena kelebihan yang ditawarkannya ini.
+
+3. When programming using Rust, we are enforced by rigorous compiler constraints to make a thread-safe program. In the case of the List of Subscribers (SUBSCRIBERS) static variable, we used the DashMap external library for thread-safe HashMap. Explain based on your understanding of design patterns, do we still need DashMap or we can implement Singleton pattern instead ? <br>
+Jawab : DashMap menyediakan dukungan bawaan untuk akses concurrent yang memudahkan implementasi dan pemeliharaan struktur data yang aman dari sisi thread, namun memperkenalkan ketergantungan eksternal dan pembelajaran tambahan terkait dengan penggunaan library eksternal. Di sisi lain, pola Singleton memberikan kontrol penuh atas implementasi tanpa dependensi eksternal, tetapi memerlukan perhatian ekstra terkait keamanan thread dan bisa menjadi lebih kompleks dalam implementasinya. Jadi, menurut saya kita masih memerlukan DashMap karena kemudahan implementasinya, dan juga menggunakan library yang sudah ada akan memudahkan koding kedepannya.
 
 #### Reflection Publisher-2
 
